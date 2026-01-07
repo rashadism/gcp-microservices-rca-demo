@@ -1,0 +1,39 @@
+apiVersion: openchoreo.dev/v1alpha1
+kind: ObservabilityAlertsNotificationChannel
+metadata:
+  name: default-notificationchannel
+spec:
+  environment: development
+  type: email
+  config:
+    from: notifications@openchoreo.dev # Replace with your SMTP sender email address
+    to:
+      - openchoreo-devops-group@acme.com # Replace with your recipients' email addresses
+    smtp:
+      host: mail.example.com # Replace with your SMTP host
+      port: 587 # Replace with your SMTP port
+      auth:
+        username:
+          secretKeyRef:
+            name: default-notificationchannel-smtp-auth
+            key: username
+        password:
+          secretKeyRef:
+            name: default-notificationchannel-smtp-auth
+            key: password
+      tls:
+        insecureSkipVerify: true
+    template:
+      subject: "Test OpenChoreo notification"
+      # Modify as needed with CEL expressions
+      body: "Alert triggered for your openchoreo observability alert rule"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-notificationchannel-smtp-auth
+type: Opaque
+stringData:
+  username: smtp-username # Replace with your SMTP username
+  password: smtp-password # Replace with your SMTP password

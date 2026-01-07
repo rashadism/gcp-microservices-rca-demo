@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Single cluster OpenChoreo instance with observability plane enabled
+- OpenChoreo 0.9 single cluster instance with observability plane enabled
 - LLM API key (OpenAI preferred)
 
 ## Install RCA Agent to Observability Plane
