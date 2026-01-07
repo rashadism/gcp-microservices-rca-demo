@@ -10,6 +10,21 @@ spec:
   componentType: deployment/web-application
   autoDeploy: true
 
+  traits:
+    - name: observability-alertrule
+      instanceName: frontend-http-500-errors
+      parameters:
+        description: "HTTP 500 errors detected in frontend service"
+        severity: critical
+        source:
+          type: log
+          query: '"http.resp.status":500'
+        condition:
+          window: "1m"
+          interval: "1m"
+          operator: "gt"
+          threshold: 3
+
   parameters:
     replicas: 1
     port: 8080
@@ -64,3 +79,20 @@ spec:
           value: "shipping:80"
         - key: PRODUCT_CATALOG_SERVICE_ADDR
           value: "productcatalog:80"
+
+---
+
+apiVersion: openchoreo.dev/v1alpha1
+kind: ReleaseBinding
+metadata:
+  name: frontend-development
+  namespace: default
+spec:
+  owner:
+    projectName: gcp-microservice-demo
+    componentName: frontend
+  environment: development
+  traitOverrides:
+    frontend-http-500-errors:
+      enabled: true
+      enableAiRootCauseAnalysis: true
