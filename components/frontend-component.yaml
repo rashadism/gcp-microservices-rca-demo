@@ -11,7 +11,7 @@ spec:
   autoDeploy: true
 
   traits:
-    - name: observability-alertrule
+    - name: observability-alert-rule
       instanceName: frontend-http-500-errors
       parameters:
         description: "HTTP 500 errors detected in frontend service"
