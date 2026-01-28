@@ -5,7 +5,7 @@ metadata:
 spec:
   environment: development
   type: email
-  config:
+  emailConfig:
     from: notifications@openchoreo.dev # Replace with your SMTP sender email address
     to:
       - openchoreo-devops-group@acme.com # Replace with your recipients' email addresses
